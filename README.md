@@ -1,4 +1,4 @@
-# displaylink-installer
+# displaylink-manager
 Helper script for semi-automatic installation of the official Synaptics DisplayLink driver with Secure Boot support.
 
 ## Disclaimer:
