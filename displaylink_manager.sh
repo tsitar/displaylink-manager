@@ -38,7 +38,6 @@ PATH_TO_MOKKEY="${HOME}/.config/mokkey/"        # This key can be reused for fut
 KEEP_DOWNLOADED_DRIVERS="false"                 # When set true script will not remove driver archives
 DRIVER_INSTALLER_PATH=$(pwd)
 
-
 # just a bit of styling for better readability
 YELLOW='\x1b[38;2;255;255;0m'
 RED='\x1b[38;2;227;11;11m'
@@ -90,7 +89,7 @@ function download_driver {
     fi
 
     # scrape the whole html page for offline parsing
-    scraped_synaptics_website=$(curl -s http://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu)
+    scraped_synaptics_website=$(curl -s https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu)
 
     if [[ "${selected_version}" != "" ]]; then
         # Parse version-related data
@@ -115,7 +114,7 @@ function download_driver {
     fi
 
     # compose the download link
-    driver_download_link="http://www.synaptics.com/sites/default/files/exe_files/${html_path_date}/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu${selected_version}-EXE.zip"
+    driver_download_link="https://www.synaptics.com/sites/default/files/exe_files/${html_path_date}/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu${selected_version}-EXE.zip"
 
     # prep less idiotic name for the downloaded driver archive
     file_version_sufix=$(echo ${selected_version} | tr "." "_")
@@ -173,7 +172,7 @@ function install_driver {
 
     # Run official installer
     echo -e "${YELLOW}Driver installation is about to begin.${CLEARFORMAT}"
-    echo -e "${YELLOW}Depending on your system configuration the installer may try to generate MOK key and sign the kernel module automatically. If the installation gets stuck on \"Installing EVDI DKMS module\" for a few minutes, try resizing the terminal window, then an interactive prompt about MOK should appear. In this case the prompt seems to re-draw only with window resize event so resize the window after every action to see the result.${CLEARFORMAT}"
+    echo -e "${YELLOW}Depending on your system configuration the official installer may try to generate MOK key and sign the kernel module automatically. If the installation gets stuck on \"Installing EVDI DKMS module\" for a few minutes, try resizing the terminal window, then an interactive prompt about MOK should appear. In this case the prompt seems to re-draw only with window resize event so resize the window after every action to see the result.${CLEARFORMAT}"
 
     request_consent
 
@@ -303,7 +302,7 @@ function list_driver_releases {
         sudo apt update
         sudo apt install curl
     fi
-    curl -s http://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu | grep "Release: " | awk '{ print $2}' | sort
+    curl -s https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu | grep "Release: " | awk '{ print $2}' | sort
 }
 
 
